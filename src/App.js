@@ -24,7 +24,7 @@ function App() {
       <div className="App">
       <Navbar/>
       <Routes>
-        <Route path='/' element={<Homepage/>}/>
+        <Route exact path='/' element={<Homepage/>}/>
         {sharedvalue.isauthed.islogged ?<></>:<Route path='/login' element={<Login/>}/> }
         {sharedvalue.isauthed.islogged ?<></>:<Route path='/Register' element={<Register/>}/> }
         {sharedvalue.isauthed.islogged ?<Route path='/profile' element={<Profile/>}/>:<></> }
@@ -32,7 +32,7 @@ function App() {
         <Route path='/products' element={<Products/>}/>
         <Route path='/about' element={<About/>}/>
         <Route path='/contact' element={<Contact/>}/>
-        <Route path='*' element={<Errorpage/>}/>
+        <Route path='/*' element={<Errorpage/>}/>
         
       </Routes>
       <Footer/>

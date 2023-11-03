@@ -23,7 +23,18 @@ const Myprovider = ({children})=>{
       }
     });
 
-    const [products,setproducts]=useState(null);
+    const [products,setproducts]=useState([{
+      availability: true,
+      category: "mobiles",
+      des: "The Apple iPhone 14 promises to deliver cutting-edge technology with its advanced features and enhancements, offering users a top-tier mobile experience. With improved performance, camera capabilities, and innovative design, it's set to be a sought-after device for tech enthusiasts.",
+      flashitems: true,
+      id: "4b45cd53-7832-48d3-9eb8-7ff2daef38ef",
+      imgurl: "https://firebasestorage.googleapis.com/v0/b/department-store-9d74e.appspot.com/o/appleiphone14.PNG?alt=media&token=69bc0c29-1375-4004-bf07-4191582f38c6",
+      name: "Iphone14",
+      price: "59999",
+      size: "all",
+      stars: "5"
+    }]);
 
     const sharedvalue={
       isauthed:isauthed,
@@ -110,8 +121,8 @@ const Myprovider = ({children})=>{
   
           if (docSnap.exists()) {
             const dataproduct=docSnap.data();
-            console.log('here are the products',dataproduct)
-            setproducts(dataproduct);
+            console.log('here are the products',dataproduct.product)
+            setproducts(dataproduct.product);
           } else {
             console.log('No products available!');
           }

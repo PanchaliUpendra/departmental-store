@@ -113,7 +113,7 @@ function Homepage(){
                     
                     <h1 className='browse-by-cate-header'>Flash Sales</h1>
                     <div className='flash-items-all-cards'>
-                    {sharedvalue.products.product.filter(item => item.flashitems===true).map((item,idx)=>(
+                    {sharedvalue.products.filter(item => item.flashitems===true).map((item,idx)=>(
                         <div className='flash-items-each-card' key={idx}>
                             <div className='flash-item-images'>
                             <img src={item.imgurl} alt='products'/>
@@ -171,7 +171,7 @@ function Homepage(){
                     </div>
                     <h1 className='browse-by-cate-header'>Best Selling Products</h1>
                     <div className='flash-items-all-cards'>
-                    {sharedvalue.products.product.filter((item,idx)=> item.flashitems!==true && idx<10).map((item,idx)=>(
+                    {sharedvalue.products.filter((item,idx)=> item.flashitems!==true && idx<10).map((item,idx)=>(
                         <div className='flash-items-each-card' key={idx}>
                             <div className='flash-item-images'>
                             <img src={item.imgurl} alt='products'/>
@@ -202,7 +202,7 @@ function Homepage(){
                     </div>
                     <h1 className='browse-by-cate-header'>Explore Our Products</h1>
                     <div className='flash-items-all-cards'>
-                    {sharedvalue.products.product.filter((item,idx)=> item.flashitems!==true && idx>=10 && idx<=25).map((item,idx)=>(
+                    {sharedvalue.products.filter((item,idx)=> item.flashitems!==true && idx>=10 && idx<=25).map((item,idx)=>(
                         <div className='flash-items-each-card' key={idx}>
                             <div className='flash-item-images'>
                             <img src={item.imgurl} alt='products'/>

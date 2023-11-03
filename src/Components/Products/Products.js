@@ -13,7 +13,7 @@ function Products(){
                     <p>Home / <span>products</span></p>
                 </div>
                 <div className='products-items-all-cards'>
-                    {sharedvalue.products.product.filter((item,idx)=> item).map((item,idx)=>(
+                    {sharedvalue.products.filter((item,idx)=> item).map((item,idx)=>(
                         <div className='flash-items-each-card' key={idx}>
                             <div className='flash-item-images'>
                             <img src={item.imgurl} alt='products'/>
