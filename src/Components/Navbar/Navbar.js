@@ -58,7 +58,7 @@ function Navbar(){
                 <h1 onClick={()=>navigate('/')}>Exclusive</h1>
                 <ul>
                     <NavLink to='/' activeClassName='active'><li>Home</li></NavLink>
-                    <li>products</li>
+                    <NavLink to='/products' activeClassName='active'><li>products</li></NavLink>
                     <NavLink to='/contact' activeClassName='active'><li>Contact</li></NavLink>
                     <NavLink to='/about' activeClassName='active'><li>About</li></NavLink>
                 </ul>
