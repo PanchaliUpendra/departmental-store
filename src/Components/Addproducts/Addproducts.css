@@ -36,6 +36,11 @@
     gap: 5px;
 }
 
+.addproduct-con-inner>div label{
+    text-transform: capitalize;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
 .addproduct-con-inner>div input{
     width: 100%;
     height: 35px;
@@ -81,4 +86,40 @@
 
 .addproducts-textarea>textarea:focus{
     outline: none;
+}
+
+.addproducts-submit-btn{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.addproducts-submit-btn>button{
+    width: 150px;
+    height: 40px;
+    border-radius: 2px;
+    border: none;
+    margin-top: 30px;
+    background-color: #DB4444;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 1px;
+    border-radius: 4px;
+}
+
+.addproducts-choose-img-div{
+    display: flex;
+    flex-direction: row;
+}
+
+.addproducts-choose-img-div>button{
+    background-color: #DB4444;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
 }
