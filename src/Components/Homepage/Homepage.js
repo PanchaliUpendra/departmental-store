@@ -16,6 +16,13 @@ import cate3 from '../../Assets/catei3.PNG';
 import cate4 from '../../Assets/catei4.PNG';
 import cate5 from '../../Assets/catei5.PNG';
 
+import stars from '../../Assets/stars.png';
+import { useContext } from 'react';
+
+import Mycontext from '../../Mycontext';
+
+import iphoneicon from '../../Assets/iphoneicon.png';
+import rightarrow from '../../Assets/rightarrow.png';
 
 
 
@@ -33,16 +40,58 @@ function Homepage(){
        
       };
 
+    const sharedvalue = useContext(Mycontext);
+
 
     return(
         <>
             <div className='homepage-con'>
                 <div className='homepage-cur-con'>
                        
-                        <div className='homepage-cursole-div hom-cur-d1' ref={ref1} >curcomputer</div>
-                        <div className='homepage-cursole-div hom-cur-d2' ref={ref2} >femalecollection</div>
-                       <div className='homepage-cursole-div hom-cur-d3' ref={ref3}  >malecollection</div>
-                        <div className='homepage-cursole-div hom-cur-d5' ref={ref4} >accessories</div>
+                        <div className='homepage-cursole-div hom-cur-d1' ref={ref1} >
+                            <div className='homepage-cursole-div1-c1'>
+                                <img src={iphoneicon} alt='iphone-icon' className='iphone-icon-img'/>
+                                <p>iPhone 14 Series</p>
+                            </div>
+                            <h1>Up to 10% off Voucher</h1>
+                            <div className='shop-now-arrow'>
+                                <p>Shop Now</p>
+                                <img src={rightarrow} alt='rightarrow' className='rightarrow-header'/>
+                            </div>
+                        </div>
+                        <div className='homepage-cursole-div hom-cur-d2' ref={ref2} >
+                        <div className='homepage-cursole-div1-c1'>
+                                {/* <img src={iphoneicon} alt='iphone-icon' className='iphone-icon-img'/> */}
+                                <p>Female Collection</p>
+                            </div>
+                            <h1>Up to 10% off Voucher</h1>
+                            <div className='shop-now-arrow'>
+                                <p>Shop Now</p>
+                                <img src={rightarrow} alt='rightarrow' className='rightarrow-header'/>
+                            </div>
+                        </div>
+                       <div className='homepage-cursole-div hom-cur-d3' ref={ref3}  >
+                       <div className='homepage-cursole-div1-c1'>
+                                <img src={iphoneicon} alt='iphone-icon' className='iphone-icon-img'/>
+                                <p>Laptops</p>
+                            </div>
+                            <h1>Up to 10% off Voucher</h1>
+                            <div className='shop-now-arrow'>
+                                <p>Shop Now</p>
+                                <img src={rightarrow} alt='rightarrow' className='rightarrow-header'/>
+                            </div>
+                       </div>
+                        <div className='homepage-cursole-div hom-cur-d5' ref={ref4} > 
+                            <div className='homepage-cursole-div1-c1'>
+                                {/* <img src={iphoneicon} alt='iphone-icon' className='iphone-icon-img'/> */}
+                                <p>Male Collection</p>
+                            </div>
+                            <h1>Up to 10% off Voucher</h1>
+                            <div className='shop-now-arrow'>
+                                <p>Shop Now</p>
+                                <img src={rightarrow} alt='rightarrow' className='rightarrow-header'/>
+                            </div>
+                            </div>
                 </div>
                 <div className='homepage-cur-scon'>
                     <ul> 
@@ -52,6 +101,33 @@ function Homepage(){
                         <li onClick={()=>handleScrollIntoView(ref4,'ref4')} className={refactive==='ref4'?'cur-active':'cur-inactive'}></li>
                     </ul>
                 </div>
+                {/* flash items goes here */}
+                <div className='homepage-flash-items'>
+                    <div className='homepage-flash-shopo-now'>
+                        <div className='homepage-feat-head'>
+                            <div></div>
+                            <h1>Today’s</h1>
+                        </div>
+                        <button>View All<img src={rightarrow} alt='rightarrow' className='rightarrow-header'/></button>
+                    </div>
+                    
+                    <h1 className='browse-by-cate-header'>Flash Sales</h1>
+                    <div className='flash-items-all-cards'>
+                    {sharedvalue.products.product.filter(item => item.flashitems===true).map((item,idx)=>(
+                        <div className='flash-items-each-card' key={idx}>
+                            <div className='flash-item-images'>
+                            <img src={item.imgurl} alt='products'/>
+                            </div>
+                            <div>
+                            <h1>{item.name}</h1>
+                            <p>₹{item.price}</p>
+                            <h3>{item.stars}<img src={stars} alt='stfarts' className='stars-icon-img'/></h3>
+                            </div>
+                        </div>
+                    ))}
+                    </div>
+                </div>
+
                 {/* Browse By Category */}
                 <div className='browse-by-cate'>
                     <hr/>
@@ -84,6 +160,32 @@ function Homepage(){
                     </div>
                     <hr/>
                 </div>
+                {/* flash items goes here */}
+                <div className='homepage-flash-items'>
+                    <div className='homepage-flash-shopo-now'>
+                        <div className='homepage-feat-head'>
+                            <div></div>
+                            <h1>This Month</h1>
+                        </div>
+                        <button>View All<img src={rightarrow} alt='rightarrow' className='rightarrow-header'/></button>
+                    </div>
+                    <h1 className='browse-by-cate-header'>Best Selling Products</h1>
+                    <div className='flash-items-all-cards'>
+                    {sharedvalue.products.product.filter((item,idx)=> item.flashitems!==true && idx<10).map((item,idx)=>(
+                        <div className='flash-items-each-card' key={idx}>
+                            <div className='flash-item-images'>
+                            <img src={item.imgurl} alt='products'/>
+                            </div>
+                            <div>
+                            <h1>{item.name}</h1>
+                            <p>₹{item.price}</p>
+                            <h3>{item.stars}<img src={stars} alt='stfarts' className='stars-icon-img'/></h3>
+                            </div>
+                        </div>
+                    ))}
+                    </div>
+                </div>
+
 
                 {/* enhance music experience */}
                 <div className='enhance-music-homepage'>
@@ -92,6 +194,29 @@ function Homepage(){
                     <h1>music experience</h1>
                 </div>
 
+                {/* flash items goes here */}
+                <div className='homepage-flash-items'>
+                    <div className='homepage-feat-head'>
+                        <div></div>
+                        <h1>Our Products</h1>
+                    </div>
+                    <h1 className='browse-by-cate-header'>Explore Our Products</h1>
+                    <div className='flash-items-all-cards'>
+                    {sharedvalue.products.product.filter((item,idx)=> item.flashitems!==true && idx>=10 && idx<=25).map((item,idx)=>(
+                        <div className='flash-items-each-card' key={idx}>
+                            <div className='flash-item-images'>
+                            <img src={item.imgurl} alt='products'/>
+                            </div>
+                            <div>
+                            <h1>{item.name}</h1>
+                            <p>₹{item.price}</p>
+                            <h3>{item.stars}<img src={stars} alt='stfarts' className='stars-icon-img'/></h3>
+                            </div>
+                        </div>
+                    ))}
+                    </div>
+                    <button className='our-products-view-all-btn'> view All Products <img src={rightarrow} alt='rightarrow' className='rightarrow-header'/></button>
+                </div>
                 {/* homepage features */}
                 <div className='homepage-feat-con'>
                     <div className='homepage-feat-head'>

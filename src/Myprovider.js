@@ -23,9 +23,12 @@ const Myprovider = ({children})=>{
       }
     });
 
+    const [products,setproducts]=useState(null);
+
     const sharedvalue={
       isauthed:isauthed,
-      usr:usr
+      usr:usr,
+      products:products
     }
 
     // handling the usear admin 
@@ -98,6 +101,26 @@ const Myprovider = ({children})=>{
       fetchData();
 
       // fetching the users DATA  from storage
+
+      const docpro = doc(db, 'products', 'Q04OE1daygv34W9nGEpa');
+
+      const fetchproducts = async () => {
+        try {
+          const docSnap = await getDoc(docpro);
+  
+          if (docSnap.exists()) {
+            const dataproduct=docSnap.data();
+            console.log('here are the products',dataproduct)
+            setproducts(dataproduct);
+          } else {
+            console.log('No products available!');
+          }
+        } catch (error) {
+          console.error('Error fetching document:', error);
+        }
+      };
+      fetchproducts();
+
       
 
       

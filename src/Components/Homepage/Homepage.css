@@ -20,17 +20,79 @@
 }
 
 .hom-cur-d1{
-    background-image:linear-gradient(90deg,rgba(6,6,23,0.6) 0%, rgba(157, 157, 157,0.3) 80%), url('../../Assets/curmobile.jpg');
+    background-image:linear-gradient(90deg,rgba(6,6,23,0.9) 0%, rgba(157, 157, 157,0.3) 80%), url('../../Assets/curmobile.jpg');
+    padding: 30px;
 }
 .hom-cur-d2{
-    background-image:linear-gradient(90deg,rgba(6,6,23,0.5) 0%, rgba(157, 157, 157,0.1) 80%), url('../../Assets/curaccessories.jpg');
+    background-image:linear-gradient(90deg,rgba(15, 15, 29, 0.9) 0%, rgba(157, 157, 157,0.1) 80%), url('../../Assets/curaccessories.jpg');
+    padding: 30px;
 }
 .hom-cur-d3{
-    background-image:linear-gradient(90deg,rgba(6,6,23,0.5) 0%, rgba(157, 157, 157,0.3) 80%), url('../../Assets/curcomputer.jpg');
+    background-image:linear-gradient(90deg,rgba(6,6,23,0.9) 0%, rgba(157, 157, 157,0.3) 80%), url('../../Assets/curcomputer.jpg');
+    padding: 30px;
 }
 
 .hom-cur-d5{
-    background-image:linear-gradient(90deg,rgba(6,6,23,0.5) 0%, rgba(157, 157, 157,0.3) 80%), url('../../Assets/menscollection.jpg');
+    background-image:linear-gradient(90deg,rgba(6,6,23,0.9) 0%, rgba(157, 157, 157,0.3) 80%), url('../../Assets/menscollection.jpg');
+    padding: 30px;
+}
+
+.homepage-cursole-div1-c1{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+.homepage-cursole-div1-c1>p{
+    color: var(--Text, #FAFAFA);
+    text-align: center;
+    font-family: Poppins;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+}
+
+.homepage-cursole-div>h1{
+    color: var(--Text, #FAFAFA);
+
+
+    font-family: Inter;
+    font-size:2.5rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 60px; 
+    letter-spacing: 1.92px;
+}
+
+.shop-now-arrow{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.shop-now-arrow>p{
+    color: var(--Text, #FAFAFA);
+    text-align: center;
+    font-family: Poppins;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; 
+    border: 1px solid white;
+    border-top: hidden;
+    border-left: hidden;
+    border-right: hidden;
+    padding-bottom: 5px;
+}
+
+
+.iphone-icon-img{
+    width: 50px;
+    height: 50px;
 }
 
 
@@ -41,6 +103,52 @@
     justify-content: center;
     margin-bottom: 15px;
 }
+
+.homepage-flash-shopo-now{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+.homepage-flash-shopo-now>button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: #DB4444;
+    color: white;
+    padding: 5px 10px;
+    font-size: 1rem;
+    font-family: poppins;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.our-products-view-all-btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: #DB4444;
+    color: white;
+    padding: 5px 10px;
+    font-size: 1rem;
+    font-family: poppins;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: auto;
+    
+}
+
+.homepage-flash-shopo-now>button:hover{
+    background-color: #ce0808;
+}
+
 .homepage-cur-scon>ul{
     display: flex;
     flex-direction: row;
@@ -232,6 +340,74 @@
     font-family: poppins;
     font-weight: 500;
     text-transform: capitalize;
+}
+
+.homepage-flash-items{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.flash-item-images{
+    width: 270px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.flash-item-images>img{
+    width: 100%;
+    height: 100%;
+    object-fit:contain;
+}
+
+.stars-icon-img{
+    width: 20px;
+    height: 20px;
+}
+
+.flash-items-each-card>h3{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.flash-items-all-cards{
+    display: flex;
+    flex-direction: row;
+    overflow: scroll;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.flash-items-each-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flash-items-each-card h1{
+    font-family: Poppins;
+    font-size: 1.1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    text-transform: capitalize;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.flash-items-each-card p{
+    color: var(--Secondary-2, #DB4444);
+/* Title/16PX Medium */
+    font-family: Poppins;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
 }
 
 @media screen and (max-width:425.12345px){
