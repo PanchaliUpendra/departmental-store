@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Mycontext from './Mycontext';
 import {onAuthStateChanged } from "firebase/auth";
 import { auth } from './Firebase';
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from './Firebase';
 
 const Myprovider = ({children})=>{
@@ -36,17 +36,20 @@ const Myprovider = ({children})=>{
       stars: "5"
     }]);
 
+    const [wishlist,setwishlist] = useState([]);
+
     const sharedvalue={
       isauthed:isauthed,
       usr:usr,
-      products:products
+      products:products,
+      wishlist:wishlist
     }
 
     // handling the usear admin 
    
     useEffect(()=>{
       let tempuid=null;
-      onAuthStateChanged(auth, (user) => {
+      onAuthStateChanged(auth, (user) => { //onauth state change starts from here
         if (user) {
           const uid = user.uid;
           tempuid=uid;
@@ -60,15 +63,13 @@ const Myprovider = ({children})=>{
           const usrdocref = doc(db, 'users', uid);
         const userfetchdata = async() =>{
           try{
-            const usrdocSnap = await getDoc(usrdocref);
-            if (usrdocSnap.exists()) {
-              const usrdata=usrdocSnap.data();
+             await onSnapshot(usrdocref, (doc) => {
+            
+              const usrdata=doc.data();
               setusr(usrdata);
-              
-            } else {
-              console.log('No such user document!');
-            }
-  
+              setwishlist(usrdata.wishlist);
+
+          });
           }catch(e){
             console.error('you got error while fetching the user data',e);
           }
@@ -84,7 +85,7 @@ const Myprovider = ({children})=>{
                 islogged:false
               })
         }
-      });
+      }); // onauth state chnage end here
 
       const docRef = doc(db, 'isAdmin', 'mv7cYzQicUtst9sG1as0');
 

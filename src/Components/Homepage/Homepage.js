@@ -23,6 +23,16 @@ import Mycontext from '../../Mycontext';
 
 import iphoneicon from '../../Assets/iphoneicon.png';
 import rightarrow from '../../Assets/rightarrow.png';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+
+
+import { useNavigate } from 'react-router-dom';
+
+import { db } from '../../Firebase';
+import { doc, runTransaction } from 'firebase/firestore';
+
+
 
 
 
@@ -41,6 +51,27 @@ function Homepage(){
       };
 
     const sharedvalue = useContext(Mycontext);
+    const navigate = useNavigate();
+
+    async function handlewritewishlist(id){
+        try{
+            const sfDocRef = doc(db, "users", sharedvalue.isauthed.uid);
+            console.log('here is your uid',sharedvalue.isauthed.uid);
+            const newPopulation = await runTransaction(db, async (transaction) => {
+                const sfDoc = await transaction.get(sfDocRef);
+                if (!sfDoc.exists()) {
+                  return "Document does not exist! wishlist";
+                }
+                const newPop = sfDoc.data();
+                const arr=newPop.wishlist;
+                  transaction.update(sfDocRef, { wishlist: [...arr,id] });
+                  return [...arr,id];
+              }); 
+              console.log('we added the data',newPopulation);
+        }catch(e){
+            console.error('you got an error while updating the wishlist',e);
+        }
+    }
 
 
     return(
@@ -108,7 +139,7 @@ function Homepage(){
                             <div></div>
                             <h1>Today’s</h1>
                         </div>
-                        <button>View All<img src={rightarrow} alt='rightarrow' className='rightarrow-header'/></button>
+                        <button onClick={()=>navigate('/products')}>View All<img src={rightarrow} alt='rightarrow' className='rightarrow-header'/></button>
                     </div>
                     
                     <h1 className='browse-by-cate-header'>Flash Sales</h1>
@@ -116,7 +147,15 @@ function Homepage(){
                     {sharedvalue.products.filter(item => item.flashitems===true).map((item,idx)=>(
                         <div className='flash-items-each-card' key={idx}>
                             <div className='flash-item-images'>
+                            <div className='product-add-wishlist' onClick={()=>handlewritewishlist(item.id)}>
+                                {sharedvalue.wishlist.includes(item.id)?<FavoriteIcon/>:<FavoriteBorderIcon/>}
+                            </div>
                             <img src={item.imgurl} alt='products'/>
+                            <div className='product-add-to-cart-btn'>
+                                <h1>
+                                    Add To Cart
+                                </h1>
+                            </div>
                             </div>
                             <div>
                             <h1>{item.name}</h1>
@@ -167,14 +206,22 @@ function Homepage(){
                             <div></div>
                             <h1>This Month</h1>
                         </div>
-                        <button>View All<img src={rightarrow} alt='rightarrow' className='rightarrow-header'/></button>
+                        <button onClick={()=>navigate('/products')}>View All<img src={rightarrow} alt='rightarrow' className='rightarrow-header'/></button>
                     </div>
                     <h1 className='browse-by-cate-header'>Best Selling Products</h1>
                     <div className='flash-items-all-cards'>
                     {sharedvalue.products.filter((item,idx)=> item.flashitems!==true && idx<10).map((item,idx)=>(
                         <div className='flash-items-each-card' key={idx}>
                             <div className='flash-item-images'>
+                            <div className='product-add-wishlist' onClick={()=>handlewritewishlist(item.id)}>
+                                <FavoriteBorderIcon/>
+                            </div>
                             <img src={item.imgurl} alt='products'/>
+                            <div className='product-add-to-cart-btn'>
+                                <h1>
+                                    Add To Cart
+                                </h1>
+                            </div>
                             </div>
                             <div>
                             <h1>{item.name}</h1>
@@ -205,7 +252,15 @@ function Homepage(){
                     {sharedvalue.products.filter((item,idx)=> item.flashitems!==true && idx>=10 && idx<=25).map((item,idx)=>(
                         <div className='flash-items-each-card' key={idx}>
                             <div className='flash-item-images'>
+                            <div className='product-add-wishlist' onClick={()=>handlewritewishlist(item.id)}>
+                                <FavoriteBorderIcon/>
+                            </div>
                             <img src={item.imgurl} alt='products'/>
+                            <div className='product-add-to-cart-btn'>
+                                <h1>
+                                    Add To Cart
+                                </h1>
+                            </div>
                             </div>
                             <div>
                             <h1>{item.name}</h1>
@@ -215,7 +270,7 @@ function Homepage(){
                         </div>
                     ))}
                     </div>
-                    <button className='our-products-view-all-btn'> view All Products <img src={rightarrow} alt='rightarrow' className='rightarrow-header'/></button>
+                    <button className='our-products-view-all-btn' onClick={()=>navigate('/products')}> view All Products <img src={rightarrow} alt='rightarrow' className='rightarrow-header'/></button>
                 </div>
                 {/* homepage features */}
                 <div className='homepage-feat-con'>

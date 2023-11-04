@@ -3,6 +3,7 @@ import './Products.css';
 import { useContext } from 'react';
 import Mycontext from '../../Mycontext';
 import stars from '../../Assets/stars.png';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 function Products(){
     const sharedvalue = useContext(Mycontext);
@@ -16,7 +17,15 @@ function Products(){
                     {sharedvalue.products.filter((item,idx)=> item).map((item,idx)=>(
                         <div className='flash-items-each-card' key={idx}>
                             <div className='flash-item-images'>
+                            <div className='product-add-wishlist'>
+                                <FavoriteBorderIcon/>
+                            </div>
                             <img src={item.imgurl} alt='products'/>
+                            <div className='product-add-to-cart-btn'>
+                                <h1>
+                                    Add To Cart
+                                </h1>
+                            </div>
                             </div>
                             <div>
                             <h1>{item.name}</h1>

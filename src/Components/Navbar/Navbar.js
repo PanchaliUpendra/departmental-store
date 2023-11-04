@@ -16,6 +16,17 @@ function Navbar(){
 
     const navigate =useNavigate();
 
+    //handle future not logged in
+    async function handlefuturesnotlogin(){
+        try{
+            alert('you have to login first');
+            navigate('/login')
+        }
+        catch(e){
+            console.error('you got an error while future accessing',e);
+        }
+    }
+
     // handleprofile
     function handleprofilebar(){
         setprofilenav(profilestat=>!profilestat);
@@ -63,7 +74,7 @@ function Navbar(){
                     <NavLink to='/about' activeClassName='active'><li>About</li></NavLink>
                 </ul>
                 <div className='nav-icon-con'>
-                <FavoriteBorderIcon/>
+                {sharedvalue.isauthed.islogged?<FavoriteBorderIcon onClick={()=>navigate('/wishlist')}/>:<FavoriteBorderIcon onClick={handlefuturesnotlogin}/>}
                 <ShoppingCartIcon/>
                 {sharedvalue.isauthed.islogged?<PersonOutlineIcon onClick={handleprofilebar}/>:<NavLink to='/login'><p>Login</p></NavLink>}
                 {sharedvalue.isauthed.islogged &&

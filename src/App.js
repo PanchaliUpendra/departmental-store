@@ -14,6 +14,7 @@ import Mycontext from './Mycontext';
 import Addproducts from './Components/Addproducts/Addproducts';
 import Profile from './Components/Profile/Profile';
 import Products from './Components/Products/Products';
+import Wishlist from './Components/Wishlist/Wishlist';
 
 function App() {
   
@@ -28,6 +29,7 @@ function App() {
         {sharedvalue.isauthed.islogged ?<></>:<Route path='/login' element={<Login/>}/> }
         {sharedvalue.isauthed.islogged ?<></>:<Route path='/Register' element={<Register/>}/> }
         {sharedvalue.isauthed.islogged ?<Route path='/profile' element={<Profile/>}/>:<></> }
+        {sharedvalue.isauthed.islogged ?<Route path='/wishlist' element={<Wishlist/>}/>:<></> }
         {sharedvalue.isauthed.islogged &&  sharedvalue.isauthed.isAdmin &&  <Route path='/addproducts' element={<Addproducts/>}/>}
         <Route path='/products' element={<Products/>}/>
         <Route path='/about' element={<About/>}/>
