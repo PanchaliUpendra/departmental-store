@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import Mycontext from '../../Mycontext';
 import { signOut,onAuthStateChanged } from "firebase/auth";
 import {auth} from '../../Firebase';
+import Badge from '@mui/material/Badge';
 
 function Navbar(){
     const [sidenav,setsidenav]=useState(false);
@@ -62,6 +63,8 @@ function Navbar(){
             alert('you got an error')
         }
     }
+
+    //badge customised color
     
     return(
         <>
@@ -74,8 +77,15 @@ function Navbar(){
                     <NavLink to='/about' activeClassName='active'><li>About</li></NavLink>
                 </ul>
                 <div className='nav-icon-con'>
-                {sharedvalue.isauthed.islogged?<FavoriteBorderIcon onClick={()=>navigate('/wishlist')}/>:<FavoriteBorderIcon onClick={handlefuturesnotlogin}/>}
-                <ShoppingCartIcon/>
+                {sharedvalue.isauthed.islogged?
+                    <Badge badgeContent={sharedvalue.wishlist.length} color="error">
+                    <FavoriteBorderIcon onClick={()=>navigate('/wishlist')}/>
+                    </Badge>:<FavoriteBorderIcon onClick={handlefuturesnotlogin}/>}
+                    {sharedvalue.isauthed.islogged?
+                    <Badge badgeContent={sharedvalue.mycart.length} color="error">
+                    <ShoppingCartIcon onClick={()=>navigate('/mycart')}/>
+                    </Badge>:<ShoppingCartIcon onClick={handlefuturesnotlogin}/>}
+                
                 {sharedvalue.isauthed.islogged?<PersonOutlineIcon onClick={handleprofilebar}/>:<NavLink to='/login'><p>Login</p></NavLink>}
                 {sharedvalue.isauthed.islogged &&
                     <div className={profilenav?'profile-navbar':'inactive-profile-nav'}>

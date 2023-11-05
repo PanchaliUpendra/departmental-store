@@ -30,7 +30,10 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useNavigate } from 'react-router-dom';
 
 import { db } from '../../Firebase';
-import { doc, runTransaction } from 'firebase/firestore';
+import { doc} from 'firebase/firestore';
+
+import { writeBatch} from "firebase/firestore";
+
 
 
 
@@ -52,22 +55,37 @@ function Homepage(){
 
     const sharedvalue = useContext(Mycontext);
     const navigate = useNavigate();
+    const batch = writeBatch(db);
 
     async function handlewritewishlist(id){
         try{
-            const sfDocRef = doc(db, "users", sharedvalue.isauthed.uid);
-            console.log('here is your uid',sharedvalue.isauthed.uid);
-            const newPopulation = await runTransaction(db, async (transaction) => {
-                const sfDoc = await transaction.get(sfDocRef);
-                if (!sfDoc.exists()) {
-                  return "Document does not exist! wishlist";
-                }
-                const newPop = sfDoc.data();
-                const arr=newPop.wishlist;
-                  transaction.update(sfDocRef, { wishlist: [...arr,id] });
-                  return [...arr,id];
-              }); 
-              console.log('we added the data',newPopulation);
+
+            if(sharedvalue.wishlist.includes(id)){
+                const batchrf = doc(db, "users", sharedvalue.isauthed.uid);
+                batch.update(batchrf,{"wishlist":sharedvalue.wishlist.filter(item=>item!==id)});
+                await batch.commit();
+
+            }else{
+                const sfDocRef = doc(db, "users", sharedvalue.isauthed.uid);
+                batch.update(sfDocRef,{"wishlist":[...sharedvalue.wishlist,id]});
+                await batch.commit();
+            }
+        }catch(e){
+            console.error('you got an error while updating the wishlist',e);
+        }
+    }
+
+    async function handlewritemycart(id){
+        try{
+
+            if(sharedvalue.mycart.includes(id)){
+                console.log('you already added to the cart bangaram')
+
+            }else{
+                const sfDocRef = doc(db, "users", sharedvalue.isauthed.uid);
+                batch.update(sfDocRef,{"mycart":[...sharedvalue.mycart,id]});
+                await batch.commit();
+            }
         }catch(e){
             console.error('you got an error while updating the wishlist',e);
         }
@@ -148,10 +166,10 @@ function Homepage(){
                         <div className='flash-items-each-card' key={idx}>
                             <div className='flash-item-images'>
                             <div className='product-add-wishlist' onClick={()=>handlewritewishlist(item.id)}>
-                                {sharedvalue.wishlist.includes(item.id)?<FavoriteIcon/>:<FavoriteBorderIcon/>}
+                                {sharedvalue.wishlist.includes(item.id)?(<FavoriteIcon sx={{ color: 'red' }}/>):<FavoriteBorderIcon/>}
                             </div>
                             <img src={item.imgurl} alt='products'/>
-                            <div className='product-add-to-cart-btn'>
+                            <div className='product-add-to-cart-btn' onClick={()=>handlewritemycart(item.id)}>
                                 <h1>
                                     Add To Cart
                                 </h1>
@@ -214,10 +232,10 @@ function Homepage(){
                         <div className='flash-items-each-card' key={idx}>
                             <div className='flash-item-images'>
                             <div className='product-add-wishlist' onClick={()=>handlewritewishlist(item.id)}>
-                                <FavoriteBorderIcon/>
+                                {sharedvalue.wishlist.includes(item.id)?<FavoriteIcon sx={{ color: 'red' }}/>:<FavoriteBorderIcon/>}
                             </div>
                             <img src={item.imgurl} alt='products'/>
-                            <div className='product-add-to-cart-btn'>
+                            <div className='product-add-to-cart-btn' onClick={()=>handlewritemycart(item.id)}>
                                 <h1>
                                     Add To Cart
                                 </h1>
@@ -253,10 +271,10 @@ function Homepage(){
                         <div className='flash-items-each-card' key={idx}>
                             <div className='flash-item-images'>
                             <div className='product-add-wishlist' onClick={()=>handlewritewishlist(item.id)}>
-                                <FavoriteBorderIcon/>
+                                {sharedvalue.wishlist.includes(item.id)?<FavoriteIcon sx={{ color: 'red' }}/>:<FavoriteBorderIcon/>}
                             </div>
                             <img src={item.imgurl} alt='products'/>
-                            <div className='product-add-to-cart-btn'>
+                            <div className='product-add-to-cart-btn' onClick={()=>handlewritemycart(item.id)}>
                                 <h1>
                                     Add To Cart
                                 </h1>

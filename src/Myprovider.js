@@ -37,12 +37,14 @@ const Myprovider = ({children})=>{
     }]);
 
     const [wishlist,setwishlist] = useState([]);
+    const [mycart,setmycart]=useState([]);
 
     const sharedvalue={
       isauthed:isauthed,
       usr:usr,
       products:products,
-      wishlist:wishlist
+      wishlist:wishlist,
+      mycart:mycart
     }
 
     // handling the usear admin 
@@ -68,6 +70,8 @@ const Myprovider = ({children})=>{
               const usrdata=doc.data();
               setusr(usrdata);
               setwishlist(usrdata.wishlist);
+              console.log('here is your mycart',usrdata.mycart);
+              setmycart(usrdata.mycart);
 
           });
           }catch(e){
