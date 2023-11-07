@@ -75,15 +75,20 @@ function Homepage(){
         }
     }
 
-    async function handlewritemycart(id){
+    async function handlewritemycart(item){
         try{
 
-            if(sharedvalue.mycart.includes(id)){
+            if(sharedvalue.mycart.includes({
+                ...item,qty:1
+            })){
                 console.log('you already added to the cart bangaram')
 
             }else{
                 const sfDocRef = doc(db, "users", sharedvalue.isauthed.uid);
-                batch.update(sfDocRef,{"mycart":[...sharedvalue.mycart,id]});
+                batch.update(sfDocRef,{"mycart":[...sharedvalue.mycart,{
+                    ...item,
+                    qty:1
+                }]});
                 await batch.commit();
             }
         }catch(e){
@@ -163,13 +168,13 @@ function Homepage(){
                     <h1 className='browse-by-cate-header'>Flash Sales</h1>
                     <div className='flash-items-all-cards'>
                     {sharedvalue.products.filter(item => item.flashitems===true).map((item,idx)=>(
-                        <div className='flash-items-each-card' key={idx}>
+                        <div className='flash-items-each-card' key={idx} >
                             <div className='flash-item-images'>
                             <div className='product-add-wishlist' onClick={()=>handlewritewishlist(item.id)}>
                                 {sharedvalue.wishlist.includes(item.id)?(<FavoriteIcon sx={{ color: 'red' }}/>):<FavoriteBorderIcon/>}
                             </div>
-                            <img src={item.imgurl} alt='products'/>
-                            <div className='product-add-to-cart-btn' onClick={()=>handlewritemycart(item.id)}>
+                            <img src={item.imgurl} alt='products' onClick={()=>navigate(`/products/${item.id}`)}/>
+                            <div className='product-add-to-cart-btn' onClick={()=>handlewritemycart(item)}>
                                 <h1>
                                     Add To Cart
                                 </h1>
@@ -229,13 +234,13 @@ function Homepage(){
                     <h1 className='browse-by-cate-header'>Best Selling Products</h1>
                     <div className='flash-items-all-cards'>
                     {sharedvalue.products.filter((item,idx)=> item.flashitems!==true && idx<10).map((item,idx)=>(
-                        <div className='flash-items-each-card' key={idx}>
+                        <div className='flash-items-each-card' key={idx} >
                             <div className='flash-item-images'>
                             <div className='product-add-wishlist' onClick={()=>handlewritewishlist(item.id)}>
                                 {sharedvalue.wishlist.includes(item.id)?<FavoriteIcon sx={{ color: 'red' }}/>:<FavoriteBorderIcon/>}
                             </div>
-                            <img src={item.imgurl} alt='products'/>
-                            <div className='product-add-to-cart-btn' onClick={()=>handlewritemycart(item.id)}>
+                            <img src={item.imgurl} alt='products' onClick={()=>navigate(`/products/${item.id}`)}/>
+                            <div className='product-add-to-cart-btn' onClick={()=>handlewritemycart(item)}>
                                 <h1>
                                     Add To Cart
                                 </h1>
@@ -268,13 +273,13 @@ function Homepage(){
                     <h1 className='browse-by-cate-header'>Explore Our Products</h1>
                     <div className='flash-items-all-cards'>
                     {sharedvalue.products.filter((item,idx)=> item.flashitems!==true && idx>=10 && idx<=25).map((item,idx)=>(
-                        <div className='flash-items-each-card' key={idx}>
+                        <div className='flash-items-each-card' key={idx} >
                             <div className='flash-item-images'>
                             <div className='product-add-wishlist' onClick={()=>handlewritewishlist(item.id)}>
                                 {sharedvalue.wishlist.includes(item.id)?<FavoriteIcon sx={{ color: 'red' }}/>:<FavoriteBorderIcon/>}
                             </div>
-                            <img src={item.imgurl} alt='products'/>
-                            <div className='product-add-to-cart-btn' onClick={()=>handlewritemycart(item.id)}>
+                            <img src={item.imgurl} alt='products' onClick={()=>navigate(`/products/${item.id}`)}/>
+                            <div className='product-add-to-cart-btn' onClick={()=>handlewritemycart(item)}>
                                 <h1>
                                     Add To Cart
                                 </h1>

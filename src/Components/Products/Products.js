@@ -9,7 +9,9 @@ import { db } from '../../Firebase';
 import { doc} from 'firebase/firestore';
 
 import { writeBatch} from "firebase/firestore";
+import { useNavigate } from 'react-router-dom';
 function Products(){
+    const navigate = useNavigate();
     const sharedvalue = useContext(Mycontext);
     const batch = writeBatch(db);
     async function handlewritewishlist(id){
@@ -33,15 +35,20 @@ function Products(){
     const [filterpro,setfilterpro] = useState('');
     const [sortpro,setsortpro] = useState('');
 
-    async function handlewritemycart(id){
+    async function handlewritemycart(item){
         try{
 
-            if(sharedvalue.mycart.includes(id)){
+            if(sharedvalue.mycart.includes({
+                ...item,qty:1
+            })){
                 console.log('you already added to the cart bangaram')
 
             }else{
                 const sfDocRef = doc(db, "users", sharedvalue.isauthed.uid);
-                batch.update(sfDocRef,{"mycart":[...sharedvalue.mycart,id]});
+                batch.update(sfDocRef,{"mycart":[...sharedvalue.mycart,{
+                    ...item,
+                    qty:1
+                }]});
                 await batch.commit();
             }
         }catch(e){
@@ -78,13 +85,13 @@ function Products(){
                 </div>
                 <div className='products-items-all-cards'>
                     {sharedvalue.products.filter((item,idx)=>filterpro===''?true:item.category===filterpro).slice().sort((a,b)=>sortpro===''?true:sortpro==='increasing'?a.price-b.price:b.price-a.price).map((item,idx)=>(
-                        <div className='flash-items-each-card' key={idx}>
+                        <div className='flash-items-each-card' key={idx} >
                             <div className='flash-item-images'>
                             <div className='product-add-wishlist' onClick={()=>handlewritewishlist(item.id)}>
                             {sharedvalue.wishlist.includes(item.id)?<FavoriteIcon sx={{ color: 'red' }}/>:<FavoriteBorderIcon/>}
                             </div>
-                            <img src={item.imgurl} alt='products'/>
-                            <div className='product-add-to-cart-btn' onClick={()=>handlewritemycart(item.id)}>
+                            <img src={item.imgurl} alt='products' onClick={()=>navigate(`/products/${item.id}`)}/>
+                            <div className='product-add-to-cart-btn' onClick={()=>handlewritemycart(item)}>
                                 <h1>
                                     Add To Cart
                                 </h1>
