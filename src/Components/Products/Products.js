@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Products.css';
 import { useContext } from 'react';
 import Mycontext from '../../Mycontext';
@@ -29,21 +29,62 @@ function Products(){
             console.error('you got an error while updating the wishlist',e);
         }
     }
+
+    const [filterpro,setfilterpro] = useState('');
+    const [sortpro,setsortpro] = useState('');
+
+    async function handlewritemycart(id){
+        try{
+
+            if(sharedvalue.mycart.includes(id)){
+                console.log('you already added to the cart bangaram')
+
+            }else{
+                const sfDocRef = doc(db, "users", sharedvalue.isauthed.uid);
+                batch.update(sfDocRef,{"mycart":[...sharedvalue.mycart,id]});
+                await batch.commit();
+            }
+        }catch(e){
+            console.error('you got an error while updating the wishlist',e);
+        }
+    }
+    useEffect(()=>{
+        window.scrollTo({top:0,behavior:'smooth'});
+    },[])
     return(
         <>
             <div className='products-con'>
                 <div className="about-path">
                     <p>Home / <span>products</span></p>
                 </div>
+                <div className='products-select-options'>
+                    <div className='product-select-parts'>
+                        <select value={filterpro} onChange={(e)=>setfilterpro(e.target.value)}>
+                            <option value=''>Filter</option>
+                            <option value='femalecollection'>Female Collection</option>
+                            <option value='malecollection'>Male Collection</option>
+                            <option value='electronics'>Electronics</option>
+                            <option value='mobiles'>Mobiles</option>
+                            <option value='computer'>computer & laptops</option>
+                            <option value='kidsware'>Kids wear</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <select value={sortpro} onChange={(e)=>setsortpro(e.target.value)}>
+                            <option value=''>Sort</option>
+                            <option value='increasing'>Low To High</option>
+                            <option value='decreasing'>High To Low</option>
+                        </select>
+                    </div>
+                </div>
                 <div className='products-items-all-cards'>
-                    {sharedvalue.products.filter((item,idx)=> item).map((item,idx)=>(
+                    {sharedvalue.products.filter((item,idx)=>filterpro===''?true:item.category===filterpro).slice().sort((a,b)=>sortpro===''?true:sortpro==='increasing'?a.price-b.price:b.price-a.price).map((item,idx)=>(
                         <div className='flash-items-each-card' key={idx}>
                             <div className='flash-item-images'>
                             <div className='product-add-wishlist' onClick={()=>handlewritewishlist(item.id)}>
                             {sharedvalue.wishlist.includes(item.id)?<FavoriteIcon sx={{ color: 'red' }}/>:<FavoriteBorderIcon/>}
                             </div>
                             <img src={item.imgurl} alt='products'/>
-                            <div className='product-add-to-cart-btn'>
+                            <div className='product-add-to-cart-btn' onClick={()=>handlewritemycart(item.id)}>
                                 <h1>
                                     Add To Cart
                                 </h1>

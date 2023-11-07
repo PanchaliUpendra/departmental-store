@@ -50,3 +50,34 @@
     display: flex;
 }
 
+.product-select-parts{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 5%;
+    gap: 10px;
+}
+
+.product-select-parts>select{
+    min-height: 35px;
+    padding-left: 5px;
+    border-top: hidden;
+    border-left: hidden;
+    border-right: hidden;
+    cursor: pointer;
+}
+
+.product-select-parts>select:focus{
+    outline: none;
+}
+
+option{
+    height: 30px;
+}
+
+.products-select-options{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+

@@ -145,8 +145,8 @@ function Addproducts(){
                             <option value='malecollection'>Male Collection</option>
                             <option value='electronics'>Electronics</option>
                             <option value='mobiles'>Mobiles</option>
-                            <option value='computer'>computer $ laptops</option>
-                            <option value='kidsware'>Kids ware</option>
+                            <option value='computer'>computer & laptops</option>
+                            <option value='kidsware'>Kids wear</option>
                             <option value="other">Other</option>
                         </select>
                     </div>
