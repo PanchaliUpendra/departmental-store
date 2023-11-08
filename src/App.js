@@ -17,6 +17,7 @@ import Products from './Components/Products/Products';
 import Wishlist from './Components/Wishlist/Wishlist';
 import Mycart from './Components/Mycart/Mycart';
 import Viewproduct from './Components/Viewproduct/Viewproduct';
+import Checkout from './Components/Checkout/Checkout';
 
 function App() {
   
@@ -33,6 +34,7 @@ function App() {
         {sharedvalue.isauthed.islogged ?<Route path='/profile' element={<Profile/>}/>:<></> }
         {sharedvalue.isauthed.islogged ?<Route path='/wishlist' element={<Wishlist/>}/>:<></> }
         {sharedvalue.isauthed.islogged ?<Route path='/mycart' element={<Mycart/>}/>:<></> }
+        {sharedvalue.isauthed.islogged ?<Route path='/checkout' element={<Checkout/>}/>:<></>}
         {sharedvalue.isauthed.islogged &&  sharedvalue.isauthed.isAdmin &&  <Route path='/addproducts' element={<Addproducts/>}/>}
         <Route path='/products' element={<Products/>}/>
         <Route path='/products/:id' element={<Viewproduct/>}/>

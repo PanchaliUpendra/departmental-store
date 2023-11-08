@@ -4,10 +4,12 @@ import Mycontext from '../../Mycontext';
 import emptycart from '../../Assets/emptycart.gif';
 import { db } from '../../Firebase';
 import { doc, writeBatch } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 
 function Mycart(){
     const sharedvalue = useContext(Mycontext);
+    const navigate = useNavigate();
     const batch = writeBatch(db);
 
     const [cartitems,setCartItems]=useState([{}]);
@@ -148,7 +150,7 @@ function Mycart(){
                         <p>₹{totalprice}</p>
                     </div>
                     <section>
-                    <button>Procees to checkout</button>
+                    <button onClick={()=>navigate('/checkout')}>Procees to checkout</button>
                     </section>
                     
                 </div>
