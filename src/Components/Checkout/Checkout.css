@@ -101,3 +101,20 @@
     margin-top: 5%;
     
 }
+
+.checkout-bill-con>button{
+    padding: 15px 25px;
+    color: white;
+    font-size: 1.1rem;
+    font-family: inter;
+    font-weight: 400;
+    margin-top: 15px;
+    border: none;
+    background-color: #DB4444;
+    border-radius: 4px;
+}
+
+.checkout-bill-con>button:hover{
+    background-color: #cf0404;
+    cursor: pointer;
+}
