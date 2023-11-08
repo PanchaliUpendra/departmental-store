@@ -93,7 +93,9 @@ function Navbar(){
                             <li onClick={()=>{
                             handleprofilebar();
                             navigate('/profile')}}>Profile</li>
-                            <li>Orders</li>
+                            <li onClick={()=>{
+                            handleprofilebar();
+                            navigate('/myorders')}}>MyOrders</li>  
                             {sharedvalue.isauthed.islogged && sharedvalue.isauthed.isAdmin && <li onClick={()=>{
                             handleprofilebar();
                             navigate('/addproducts')}}>Add Products</li>}
