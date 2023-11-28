@@ -1,0 +1,56 @@
+.usersquer-con{
+    min-height: 60vh;
+}
+
+
+.usersquer-all-divs{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+
+.usersqu-each1{
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
+
+.usersqu-each1>p{
+    font-size: 1.1rem;
+    font-family: poppins;
+    font-weight: 500;
+    color: gray;
+}
+
+.usersqu-each1>p span{
+    color: black;
+    text-transform: capitalize;
+    margin-right: 5px;
+}
+
+.usersqu-each1>h1{
+    font-family: inter;
+    font-weight: 700;
+    font-size: 1.4rem;
+}
+
+.usersqu-each1>h1 span{
+    font-weight: 700;
+    text-transform: uppercase;
+    color: red;
+    font-family: poppins;
+}
+
+
+.usersqu-each1>button{
+    color: red;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    font-family: poppins;
+    font-weight: 600;
+    background-color: rgba(254, 107, 107, 0.2);
+    cursor: pointer;
+}
