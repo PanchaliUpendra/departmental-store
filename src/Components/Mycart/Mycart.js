@@ -111,9 +111,9 @@ function Mycart(){
                                         <p>{item.name}</p>
                                     </div>
                                 </td>
-                                <td>₹{item.price}</td>
+                                <td>${item.price}</td>
                                 <td className='mycart-qty-input-div'>{item.qty}<input type='number' value={Number(item.qty)} onChange={(e)=>e.target.value>Number(item.qty)?handleIncrease(item):handleDecrease(item)}/></td>
-                                <td>₹{Number(item.price)*Number(item.qty)}</td>
+                                <td>${Number(item.price)*Number(item.qty)}</td>
                                 <td className='final-td-intr' onClick={()=>handledeletecart(item)}>Remove</td>
                             </tr>))
                     }
@@ -137,7 +137,7 @@ function Mycart(){
                 <div className='mycart-first-step-bill'>
                     <div>
                         <p>Subtotal:</p>
-                        <p>₹{totalprice}</p>
+                        <p>${totalprice}</p>
                     </div>
                     <hr/>
                     <div>
@@ -147,7 +147,7 @@ function Mycart(){
                     <hr/>
                     <div>
                         <p>Total:</p>
-                        <p>₹{totalprice}</p>
+                        <p>${totalprice}</p>
                     </div>
                     <section>
                     <button onClick={()=>navigate('/checkout')}>Procees to checkout</button>

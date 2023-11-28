@@ -180,7 +180,7 @@ function Checkout(){
                         ))}
                         <div className='checkout-bill-con-each-two'>
                             <p>subtotal:</p>
-                            <p>₹{totalprice}</p>
+                            <p>${totalprice}</p>
                         </div>
                         <hr/>
                         <div className='checkout-bill-con-each-two'>
@@ -190,7 +190,7 @@ function Checkout(){
                         <hr/>
                         <div className='checkout-bill-con-each-two'>
                             <p>Total:</p>
-                            <p>₹{totalprice}</p>
+                            <p>${totalprice}</p>
                         </div>
                         <p>Cash on delivery Only</p>
                         <button onClick={()=>handleplaceorder()}>Place Order</button>

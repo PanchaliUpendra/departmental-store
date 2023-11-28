@@ -62,7 +62,7 @@ function Wishlist(){
                             </div>
                             <div>
                             <h1>{item.name}</h1>
-                            <p>₹{item.price}</p>
+                            <p>${item.price}</p>
                             <h3>{item.stars}<img src={stars} alt='stfarts' className='stars-icon-img'/></h3>
                             </div>
                         </div>
