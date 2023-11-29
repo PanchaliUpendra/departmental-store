@@ -118,3 +118,18 @@
     background-color: #cf0404;
     cursor: pointer;
 }
+
+.checkout-bill-con-each-two-divs-one{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    
+}
+.checkout-bill-con-each-two-divs-one>p{
+    margin-bottom: 6px;
+}
+
+.checkout-bill-con-each-two{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

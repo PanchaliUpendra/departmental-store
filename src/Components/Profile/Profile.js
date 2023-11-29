@@ -8,7 +8,7 @@ function Profile(){
     const [prodata,setprodata]= useState({
         name:sharedvalue.usr.profile.name,
         email:sharedvalue.usr.profile.email,
-        phone:Number('99999999'),
+        phone:sharedvalue.mobile,
         address:'xx xxx xxx'
     })
 

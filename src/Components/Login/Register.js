@@ -20,13 +20,14 @@ function Register(){
         email:'',
         password:'',
         cofmpassword:'',
-        name:''
+        name:'',
+        phone:''
     })
 
     async function handleregister(e){
         e.preventDefault();
         try{
-        if(userdata.email!=='' && userdata.password.length>=6 && userdata.password===userdata.cofmpassword && userdata.name!==''){
+        if(userdata.email!=='' && userdata.password.length>=6 && userdata.password===userdata.cofmpassword && userdata.name!=='' && userdata.phone!==''){
             createUserWithEmailAndPassword(auth, userdata.email, userdata.password)
             .then((userCredential) => {
             // Signed up 
@@ -41,7 +42,8 @@ function Register(){
                 mycart:[],
                 myorders:[],
                 mycancel:[],
-                history:[]
+                history:[],
+                phone:userdata.phone
               });
             navigate('/')
              })
@@ -121,6 +123,12 @@ function Register(){
                         <input placeholder='Email' type='text' autoComplete="off" onChange={(e)=>setuserdata({
                             ...userdata,
                             email:e.target.value
+                        })}/>
+                    </div>
+                    <div>
+                        <input placeholder='Phone' type='number' autoComplete="off" onChange={(e)=>setuserdata({
+                            ...userdata,
+                            phone:e.target.value
                         })}/>
                     </div>
                     <div>

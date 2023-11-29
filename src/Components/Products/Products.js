@@ -23,6 +23,8 @@ function Products(){
     const [searchitem,setsearchitem] = useState('');
     const [minprice,setminprice] = useState('');
     const [maxprice,setmaxprice] = useState('');
+    const [minrating,setminrating] = useState('');
+    const [maxrating,setmaxrating] = useState('');
     const [subcate,setsubcate] = useState('');
     const sharedvalue = useContext(Mycontext);
     const batch = writeBatch(db);
@@ -108,18 +110,29 @@ function Products(){
                     </div>
                     <div className='product-select-parts'>
                         <div className='price-range-con'>
-                        <div className='price-range-min-max'>
-                            <div>
-                            <h1>price range</h1>
-                            <div>
-                                <input type='number' placeholder='min price' onChange={(e)=>setminprice(e.target.value)} value={minprice}/>
-                                -
-                                <input type='number' placeholder='max price' onChange={(e)=>setmaxprice(e.target.value)} value={maxprice}/>
-                            </div>
-                            </div>
-                            
+                                <div className='price-range-min-max'>
+                                    <div>
+                                        <h1>rating range</h1>
+                                        <div>
+                                            <input type='number' placeholder='min rating' onChange={(e)=>setminrating(e.target.value)} value={minrating}/>
+                                            -
+                                            <input type='number' placeholder='max rating' onChange={(e)=>setmaxrating(e.target.value)} value={maxrating}/>
+                                        </div>
+                                    </div> 
+                                </div>
                         </div>
-                    </div>
+                        <div className='price-range-con'>
+                            <div className='price-range-min-max'>
+                                <div>
+                                    <h1>price range</h1>
+                                    <div>
+                                        <input type='number' placeholder='min price' onChange={(e)=>setminprice(e.target.value)} value={minprice}/>
+                                        -
+                                        <input type='number' placeholder='max price' onChange={(e)=>setmaxprice(e.target.value)} value={maxprice}/>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
                         {/* <select value={filterpro} onChange={(e)=>setfilterpro(e.target.value)}>
                             <option value=''>Filter</option>
                             <option value='femalecollection'>Female Collection</option>
@@ -156,21 +169,30 @@ function Products(){
                     <button onClick={()=>setsubcate('malecollection')}>Male</button>
                     <button onClick={()=>setsubcate('femalecollection')}>Female</button>
                     <button onClick={()=>setsubcate('kidsware')}>Kids</button>
-                    <button onClick={()=>setfilterpro('')}>Remove</button>
+                    <button onClick={()=>{
+                        setfilterpro('');
+                        setsubcate('');
+                    }}>Remove</button>
                 </div>}
                 {filterpro==='appliances' && <div className='subcat-all-btns'>
                     <button onClick={()=>setsubcate('')}>All</button>
                     <button onClick={()=>setsubcate('microwaves')}>Microwaves</button>
                     <button onClick={()=>setsubcate('refrigerators')}>Refrigerators</button>
                     <button onClick={()=>setsubcate('coffeemakers')}>CoffeeMaker</button>
-                    <button onClick={()=>setfilterpro('')}>Remove</button>
+                    <button onClick={()=>{
+                        setfilterpro('');
+                        setsubcate('');
+                    }}>Remove</button>
                 </div>}
                 {filterpro==='electronics' && <div className='subcat-all-btns'>
                     <button onClick={()=>setsubcate('')}>All</button>
                     <button onClick={()=>setsubcate('mobiles')}>mobiles</button>
                     <button onClick={()=>setsubcate('computer')}>laptops</button>
                     <button onClick={()=>setsubcate('electronics')}>other</button>
-                    <button onClick={()=>setfilterpro('')}>Remove</button>
+                    <button onClick={()=>{
+                        setfilterpro('');
+                        setsubcate('');
+                    }}>Remove</button>
                 </div>}
                 {filterpro==='furniture' && <div className='subcat-all-btns'>
                     <button onClick={()=>setsubcate('')}>All</button>
@@ -178,11 +200,16 @@ function Products(){
                     <button onClick={()=>setsubcate('tables')}>Tables</button>
                     <button onClick={()=>setsubcate('chairs')}>Chairs</button>
                     <button onClick={()=>setsubcate('sofas')}>Sofa</button>
-                    <button onClick={()=>setfilterpro('')}>Remove</button>
+                    <button onClick={()=>{
+                        setfilterpro('');
+                        setsubcate('');
+                    }}>Remove</button>
                 </div>}
 
                 <div className='products-items-all-cards'>
-                    {sharedvalue.products.filter((finf)=>finf.name.includes(searchitem)).filter((subfif)=>subcate===''?true:subfif.category===subcate).filter((pifp)=>(Number(minprice)!==0  && Number(maxprice)!==0)?pifp.price>=Number(minprice) && pifp.price<=Number(maxprice):true).filter((item,idx)=>filterpro===''?true:item.type===filterpro).slice().sort((a,b)=>sortpro===''?true:sortpro==='increasing'?a.price-b.price:b.price-a.price).map((item,idx)=>(
+                    {sharedvalue.products.filter((finf)=>finf.name.includes(searchitem))
+                        .filter((pifp)=>(Number(minrating)!==0  && Number(maxrating)!==0)?pifp.stars>=Number(minrating) && pifp.stars<=Number(maxrating):true)
+                    .filter((subfif)=>subcate===''?true:subfif.category===subcate).filter((pifp)=>(Number(minprice)!==0  && Number(maxprice)!==0)?pifp.price>=Number(minprice) && pifp.price<=Number(maxprice):true).filter((item,idx)=>filterpro===''?true:item.type===filterpro).slice().sort((a,b)=>sortpro===''?true:sortpro==='increasing'?a.price-b.price:b.price-a.price).map((item,idx)=>(
                         <div className='flash-items-each-card' key={idx} >
                             <div className='flash-item-images'>
                             <div className='product-add-wishlist' onClick={()=>handlewritewishlist(item.id)}>

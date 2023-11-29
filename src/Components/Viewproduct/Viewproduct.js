@@ -115,7 +115,7 @@ function Viewproduct(){
                                         <p>({item.name.length*8} reviews)</p>
                                         <p>| In stock</p>
                                     </div>
-                                    <h2>₹{item.price}.00</h2>
+                                    <h2>${item.price}.00</h2>
                                     <p>{item.des}</p>
                                 </div>
                                 <hr/>

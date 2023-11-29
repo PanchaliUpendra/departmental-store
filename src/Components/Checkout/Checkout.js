@@ -14,6 +14,7 @@ function Checkout(){
     const sharedvalue = useContext(Mycontext);
     const navigate= useNavigate();
     const [totalprice,settotalprice] = useState(0);
+    const [radiooption,setradiooption]=useState('option1');
     
     const batch = writeBatch(db);
 
@@ -55,7 +56,7 @@ function Checkout(){
             return {
                 orderid:uuidv4(),
                 items:sharedvalue.mycart,
-                totalprice:totalprice,
+                totalprice:radiooption==='option1'?totalprice+5:totalprice,
                 address:addressdetail,
                 uid:sharedvalue.isauthed.uid,
                 status:"pending"
@@ -175,7 +176,7 @@ function Checkout(){
                                 <img src={item.imgurl} alt='pics'/>
                                 <p>{item.qty}×{item.name}</p>
                                 </div>
-                                <p>₹{Number(item.price)*Number(item.qty)}</p>
+                                <p>${Number(item.price)*Number(item.qty)}</p>
                             </div>
                         ))}
                         <div className='checkout-bill-con-each-two'>
@@ -184,13 +185,22 @@ function Checkout(){
                         </div>
                         <hr/>
                         <div className='checkout-bill-con-each-two'>
+                            <div className='checkout-bill-con-each-two-divs-one'>
                             <p>Shipping:</p>
-                            <p>Free</p>
+                            <label>
+                            <input type='radio' value='option1' checked={radiooption==='option1'} onChange={()=>setradiooption('option1')}/>
+                            Ship To Home(fee:$5)
+                            </label>
+                            <label>
+                            <input type='radio' value='option2' checked={radiooption==='option2'} onChange={()=>setradiooption('option2')}/>
+                            Store PickUp(Free)
+                            </label>
+                            </div>
                         </div>
                         <hr/>
                         <div className='checkout-bill-con-each-two'>
                             <p>Total:</p>
-                            <p>${totalprice}</p>
+                            <p>${radiooption==='option1'?Number(totalprice)+5:Number(totalprice)}</p>
                         </div>
                         <p>Cash on delivery Only</p>
                         <button onClick={()=>handleplaceorder()}>Place Order</button>

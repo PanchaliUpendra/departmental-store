@@ -13,6 +13,7 @@ const Myprovider = ({children})=>{
         person:null,
         isAdmin:false
     });
+    const [mobile,setmobile]=useState('')
 
     const [usr,setusr]=useState({
       profile:{
@@ -47,7 +48,8 @@ const Myprovider = ({children})=>{
       products:products,
       wishlist:wishlist,
       mycart:mycart,
-      myorders:myorders
+      myorders:myorders,
+      mobile:mobile
     }
 
     // handling the usear admin 
@@ -75,6 +77,7 @@ const Myprovider = ({children})=>{
               setwishlist(usrdata.wishlist);
               setmycart(usrdata.mycart);
               setmyorders(usrdata.myorders);
+              setmobile(usrdata.mobile);
 
           });
           }catch(e){
