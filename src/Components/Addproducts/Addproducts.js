@@ -15,7 +15,8 @@ function Addproducts(){
         availability:true,
         flashitems:false,
         des:'',
-        imgurl:''
+        imgurl:'',
+        type:''
     })
     const [propimg,setpropimg]=useState('')
     function handleimageurl(e){
@@ -70,6 +71,7 @@ function Addproducts(){
                         availability:true,
                         flashitems:false,
                         des:'',
+                        type:'',
                         imgurl:''
                       });  
                       return [...arr,{
@@ -136,20 +138,41 @@ function Addproducts(){
                     </div>
                     <div>
                         <label>Category</label>
+                        <select value={addpro.type} onChange={(e)=>setaddpro(prev=>({
+                            ...prev,
+                            type:e.target.value
+                        }))}>
+                            <option value=''>Select Category</option>
+                            <option value='clothing'>Clothing</option>
+                            <option value='electronics'>Electronics</option>
+                            <option value='furniture'>Furniture</option>
+                            <option value='appliances'>Appliances</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Sub-Category</label>
                         <select value={addpro.category} onChange={(e)=>setaddpro(prev =>({
                             ...prev,
                             category:e.target.value
                         }))}>
-                            <option value=''>Select Category</option>
+                            <option value=''>Select SubCategory</option>
                             <option value='femalecollection'>Female Collection</option>
                             <option value='malecollection'>Male Collection</option>
+                            <option value='kidsware'>Kids wear</option>
                             <option value='electronics'>Electronics</option>
                             <option value='mobiles'>Mobiles</option>
                             <option value='computer'>computer & laptops</option>
-                            <option value='kidsware'>Kids wear</option>
+                            <option value='bed'>Bed</option>
+                            <option value='tables'>Tables</option>
+                            <option value='chairs'>Chairs</option>
+                            <option value='sofas'>Sofas</option>
+                            <option value='microwaves'>Microwaves</option>
+                            <option value='refrigerators'>Refrigerators</option>
+                            <option value='coffeemakers'>Coffee Makers</option>
                             <option value="other">Other</option>
                         </select>
                     </div>
+                    
                     <div>
                         <label>Choose Image</label>
                         <div className='addproducts-choose-img-div'>
