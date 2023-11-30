@@ -86,3 +86,11 @@
     background-color: rgba(254, 141, 100, 0.5);
     padding-top: 10px;
 }
+
+.myorders-para-feedback{
+    color: blue;
+    text-decoration: underline;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    cursor: pointer;
+}

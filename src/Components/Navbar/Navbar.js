@@ -102,6 +102,9 @@ function Navbar(){
                             {sharedvalue.isauthed.islogged && sharedvalue.isauthed.isAdmin && <li onClick={()=>{
                             handleprofilebar();
                             navigate('/usersqueries')}}>Users Query</li>}
+                            {sharedvalue.isauthed.islogged && sharedvalue.isauthed.isAdmin && <li onClick={()=>{
+                            handleprofilebar();
+                            navigate('/delivery')}}>Delivery</li>}
                             <li onClick={handlesignout}>SignOut</li>
                         </ul>
                     </div>

@@ -9,12 +9,14 @@ import { db } from '../../Firebase';
 import { doc} from 'firebase/firestore';
 
 import { writeBatch} from "firebase/firestore";
+import { useNavigate } from 'react-router-dom';
 
 
 
 function Wishlist(){
     const sharedvalue=useContext(Mycontext);
     const batch = writeBatch(db);
+    const navigate =  useNavigate();
 
     async function handlewritewishlist(id){
         try{
@@ -48,17 +50,17 @@ function Wishlist(){
                     :
                     <div className='products-items-all-cards'>
                     {sharedvalue.products.filter((item,idx)=> sharedvalue.wishlist.includes(item.id)).map((item,idx)=>(
-                        <div className='flash-items-each-card' key={idx}>
+                        <div className='flash-items-each-card' key={idx} onClick={()=>navigate(`/products/${item.id}`)}>
                             <div className='flash-item-images'>
                             <div className='product-add-wishlist' onClick={()=>handlewritewishlist(item.id)}>
                                 {sharedvalue.wishlist.includes(item.id)?<FavoriteIcon sx={{ color: 'red' }}/>:<FavoriteBorderIcon/>}
                             </div>
                             <img src={item.imgurl} alt='products'/>
-                            <div className='product-add-to-cart-btn'>
+                            {/* <div className='product-add-to-cart-btn'>
                                 <h1>
                                     Move to cart
                                 </h1>
-                            </div>
+                            </div> */}
                             </div>
                             <div>
                             <h1>{item.name}</h1>

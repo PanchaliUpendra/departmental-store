@@ -1,15 +1,18 @@
-import React, { useContext } from 'react';
-import './Myorders.css';
+import React, { useContext, useEffect, useState } from 'react';
+import './Delivery.css';
 import Mycontext from '../../Mycontext';
 import emptycart from '../../Assets/emptycart.gif';
-import { doc, runTransaction } from "firebase/firestore";
+import { doc, runTransaction ,onSnapshot } from "firebase/firestore";
 import { db } from '../../Firebase';
 import { writeBatch} from "firebase/firestore"; 
 
-function Myorders(){
+function Delivery(){
     const sharedvalue = useContext(Mycontext);
     const sfDocRef = doc(db, "orders", "iR5iYFyLYB3T4ZeQMwA4");
     const batch = writeBatch(db);
+    const [allorders,setallorders]=useState({
+        orders:[]
+    });
 
     async function handlecancel(id){
         try {
@@ -23,7 +26,7 @@ function Myorders(){
               const newpop = sfDoc.data().orders.filter(item=>item.orderid!==id);
                 transaction.update(sfDocRef, { orders:[...newpop,{
                     ...remvPop[0],
-                    status:"cancel"
+                    status:"success"
                 }] });
                 return "success";
               
@@ -36,7 +39,7 @@ function Myorders(){
             const temp_arr=sharedvalue.myorders.filter(item=>item.orderid!==id);
             temp_arr.push({
                 ...temp_data[0],
-                status:"cancel"
+                status:"success"
             })
 
             batch.update(sfRef,{"myorders":temp_arr});
@@ -72,14 +75,21 @@ function Myorders(){
             console.error(e);
           }
     }
+
+    useEffect(()=>{
+        const devpro = onSnapshot(doc(db, "orders", "iR5iYFyLYB3T4ZeQMwA4"), (doc) => {
+            setallorders(doc.data());
+        });
+        return ()=>devpro();
+    },[]);
     return(
         <>
             <div className='myorders-con'>
                 <div className="about-path">
-                        <p>Home / <span>My Orders</span></p>
+                        <p>Home / <span>Delivery</span></p>
                 </div>
                 {
-                    sharedvalue.myorders.length===0?
+                    allorders.orders.length===[]?
                     <div className='wishlist-emptycart-img'>
                         <img src={emptycart} alt="emptycart"/>
                     </div>
@@ -92,7 +102,7 @@ function Myorders(){
                                 <th>Modifications</th>
                             </tr>
                             {
-                                sharedvalue.myorders.map((item,idx)=>(
+                                allorders.orders.map((item,idx)=>(
                                     <tr className={item.status==="pending"?"myorders-rows-pending":item.status==="success"?"myorders-rows-success":"myorders-rows-cancel"}>
                                         <td>
                                             {item.items.map((prod,idx)=>(
@@ -105,10 +115,9 @@ function Myorders(){
                                             <p className='myorders-table-row-totalprice'>
                                             Total Price: {item.totalprice}
                                             </p>
-                                            {item.status==='success' && <p className='myorders-para-feedback'>Feedback?</p>}
                                         </td>
                                         <td>{item.status}</td>
-                                        {item.status==="pending"?<td onClick={()=>handlecancel(item.orderid)}>Cancel</td>:<td onClick={()=>handleremove(item.orderid)}>Remove</td>}
+                                        {item.status==="pending"?<td onClick={()=>handlecancel(item.orderid)}>Delivered</td>:<td onClick={()=>handleremove(item.orderid)}>Remove</td>}
                                     </tr>
                                 ))
                             }
@@ -122,4 +131,4 @@ function Myorders(){
     );
 }
 
-export default Myorders;
+export default Delivery;
