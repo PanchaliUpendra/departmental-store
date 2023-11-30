@@ -93,7 +93,7 @@ function Myorders(){
                             </tr>
                             {
                                 sharedvalue.myorders.map((item,idx)=>(
-                                    <tr className={item.status==="pending"?"myorders-rows-pending":item.status==="success"?"myorders-rows-success":"myorders-rows-cancel"}>
+                                    <tr className={item.status==="pending"?"myorders-rows-pending":item.status==="success"?"myorders-rows-success":"myorders-rows-cancel"} key={idx}>
                                         <td>
                                             {item.items.map((prod,idx)=>(
                                                 <div key={idx} className='myorders-table-each-row'>
