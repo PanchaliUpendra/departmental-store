@@ -133,3 +133,54 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.checkout-card-details{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.checkout-card-details>button{
+    width: 100%;
+    border: none;
+    min-height: 30px;
+    background-color: black;
+    color: white;
+    font-size: 1.3rem;
+    font-family: poppins;
+    margin-top: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.checkout-card-details>h1{
+    font-size: 1.3rem;
+    font-family: poppins;
+    font-weight: 600;
+}
+
+.checkout-card-details>div{
+    display: flex;
+    flex-direction: column;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.checkout-card-details>div label{
+    font-family: poppins;
+    font-weight: 500;
+}
+
+.checkout-card-details>div input{
+    height: 35px;
+    border: none;
+    border-bottom: 1px solid black;
+    padding-left: 5px;
+}
+
+.checkout-card-details>div input:focus{
+    outline: none;
+}
