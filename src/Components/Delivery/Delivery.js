@@ -11,7 +11,7 @@ function Delivery(){
     const sfDocRef = doc(db, "orders", "iR5iYFyLYB3T4ZeQMwA4");
     const batch = writeBatch(db);
     const [allorders,setallorders]=useState({
-        orders:[]
+        orders:[],
     });
 
     async function handlecancel(id){
@@ -33,7 +33,7 @@ function Delivery(){
             });
           
             console.log("Population increased to ", newPopulation);
-            const sfRef = doc(db, "users",sharedvalue.isauthed.uid);
+            const sfRef = doc(db, "users",allorders.orders.uid);
 
             const temp_data=sharedvalue.myorders.filter(item=>item.orderid===id);
             const temp_arr=sharedvalue.myorders.filter(item=>item.orderid!==id);
@@ -64,7 +64,7 @@ function Delivery(){
             });
           
             console.log("Population increased to ", newPopulation);
-            const sfRef = doc(db, "users",sharedvalue.isauthed.uid);
+            const sfRef = doc(db, "users",allorders.orders.uid);
             const temp_arr=sharedvalue.myorders.filter(item=>item.orderid!==id);
            
 
@@ -89,7 +89,7 @@ function Delivery(){
                         <p>Home / <span>Delivery</span></p>
                 </div>
                 {
-                    allorders.orders.length===[]?
+                    allorders.orders.length===0?
                     <div className='wishlist-emptycart-img'>
                         <img src={emptycart} alt="emptycart"/>
                     </div>
