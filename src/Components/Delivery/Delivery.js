@@ -14,7 +14,7 @@ function Delivery(){
         orders:[],
     });
 
-    async function handlecancel(id){
+    async function handlecancel(id,iuid){
         try {
             const newPopulation = await runTransaction(db, async (transaction) => {
               const sfDoc = await transaction.get(sfDocRef);
@@ -31,19 +31,25 @@ function Delivery(){
                 return "success";
               
             });
+            const sfRefup = doc(db, "users",iuid);
+
+            const oldpop=await runTransaction(db, async (transaction) => {
+                const sfRef=await transaction.get(sfRefup);
+                if (!sfRef.exists()) {
+                    return "Document does not exist!";
+                }
+                const temdata=sfRef.data().myorders.filter(item=>item.orderid===id);
+                const temparr=sfRef.data().myorders.filter(item=>item.orderid!==id);
+                transaction.update(sfRefup,{myorders:[...temparr,{
+                    ...temdata[0],
+                    status:"success"
+                }]})
+            });
           
             console.log("Population increased to ", newPopulation);
-            const sfRef = doc(db, "users",allorders.orders.uid);
+            console.log('oldpopulation',oldpop)
 
-            const temp_data=sharedvalue.myorders.filter(item=>item.orderid===id);
-            const temp_arr=sharedvalue.myorders.filter(item=>item.orderid!==id);
-            temp_arr.push({
-                ...temp_data[0],
-                status:"success"
-            })
-
-            batch.update(sfRef,{"myorders":temp_arr});
-            await batch.commit();
+        
           } catch (e) {
             // This will be a "population is too big" error.
             console.error(e);
@@ -117,7 +123,7 @@ function Delivery(){
                                             </p>
                                         </td>
                                         <td>{item.status}</td>
-                                        {item.status==="pending"?<td onClick={()=>handlecancel(item.orderid)}>Delivered</td>:<td onClick={()=>handleremove(item.orderid)}>Remove</td>}
+                                        {item.status==="pending"?<td onClick={()=>handlecancel(item.orderid,item.uid)}>Delivered</td>:<td onClick={()=>handleremove(item.orderid)}>Remove</td>}
                                     </tr>
                                 ))
                             }
